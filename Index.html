@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Create new Order
+          </button>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        
+                        <select class="custom-select" v-model="productId" v-if = "resultProduct">
+                            <option selected value>Select Product</option>
+                            <option v-for="(pr,i) in resultProduct" :key="i" v-bind:value="pr.id">{{pr.name}}</option>
+                          </select>
+                          <select class="custom-select" v-model="customerId" v-if = "resultCustomer">
+                            <option selected value>Select Customer</option>
+                            <option v-for="(cus,i) in resultCustomer" :key="i" v-bind:value="cus.id">{{cus.name}}</option>
+                          </select>
+
+                          <div class="form-group">
+                            <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                            <div class="col-10">
+                              <input class="form-control" type="date" value="2011-08-19"  v-model="orderDate">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <input type="number" class="form-control" placeholder="Quantity" v-model="quantity">
+                          </div>
+                      </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" @click="createData">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        <table class="table table-striped" v-if = "result">
+            <thead>
+              <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(product,i) in result?.resultObj?.data" :key="i">
+                    <td>{{product.productName}}</td>
+                    <td>{{product.categoryName}}</td>
+                    <td>{{product.customerName}}</td>
+                    <td>{{product.orderDate}}</td>
+                    <td>{{product.amount}}</td>
+                 </tr>
+              
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination"  v-if="totalRow">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item" v-for="index in totalRow" @click="fetchAPIData(index)">
+                    <a class="page-link" href="#" @click="return false;">{{index}}</a>
+                </li>
+            </ul>
+          </nav>
+        <button type = "button" id = "get-joke" @click = "fetchAPIData">Get a Joke!!</button>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+<script src = "https://cdn.jsdelivr.net/npm/vue@2.6.11" > </script> 
+<script src="js.js"></script>
+</html>
